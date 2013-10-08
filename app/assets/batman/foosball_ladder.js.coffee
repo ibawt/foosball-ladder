@@ -16,6 +16,12 @@
 Batman.config.pathToHTML = '/assets/html'
 
 class FoosballLadder extends Batman.App
+
+  @resources 'teams'
+
+
+  @resources 'users'
+
   # @resources 'products'
   # @resources 'discounts', except: ['edit']
   # @resources 'customers', only: ['new', 'show']
