@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.14'
+gem 'rails', '4.0.0.rc2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -9,16 +9,14 @@ gem 'sqlite3'
 
 
 # Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+# in production environments by 
+gem 'sass-rails',   '~> 4.0.0.rc2'
+gem 'coffee-rails', '~> 4.0.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
-end
+ gem 'uglifier', '>= 1.0.3'
 
 gem 'jquery-rails'
 
@@ -26,14 +24,14 @@ gem 'jquery-rails'
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder', '~> 1.2'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
-
+gem 'turbolinks'
 # To use debugger
 # gem 'debugger'
 
@@ -41,3 +39,4 @@ gem 'batman-rails'
 gem 'devise'
 gem 'cancan'
 gem 'mysql2'
+gem 'debugger', group: [:development, :test]
