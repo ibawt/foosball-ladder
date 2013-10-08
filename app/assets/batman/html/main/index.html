@@ -1,0 +1,447 @@
+<div class="intro">
+  <div class="wrapper">
+    <div class="row clearfix">
+      <div class="span24 intro-message">
+        <h2>You're set up with batman-rails!</h2>
+        <h3>This page aims to be a collection of everything that batman.js is capable of. Over time it will grow to include more comprehensive examples, in addition to live applications using batman.js. But most of that isn't done yet. Hooray!</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="header">
+  <div class="wrapper clearfix">
+    <h1 class="header-site-title"><a href="/">
+      <div class="logo"></div>batman.js
+    </a></h1>
+
+    <div class="header-nav clearfix">
+      <nav class="nav-top">
+        <ul class="nav-primary">
+          <li class="active"><a href="/">Overview</a></li>
+          <li><a href="http://batmanjs.org/examples.html" target="_blank">Examples</a></li>
+          <li><a href="http://batmanjs.org/docs/index.html" target="_blank">Documentation</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div><!-- /.header -->
+</div>
+
+<!-- Begin content-wrapper -->
+<div id="content-wrapper">
+  <div id="content">
+
+    <div class="alt-row">
+      <div class="wrapper clearfix">
+        <div class="row clearfix ppt">
+
+          <div class="span14">
+            <h4>Generate your resources</h4>
+            <p>Everything in batman.js has a proper place, driven by batman.js's conventions. By default with batman-rails, your app lives in app/assets/batman. A great way to get started is using the automatic generators to add some of your resources.</p><br />
+            <p>More info on <a href="http://batmanjs.org/docs/structure.html" target="_blank">directory structure</a></p>
+          </div>
+
+          <div class="span10">
+            <div class="box featured">
+              <code>
+                rails generate batman:scaffold Post<br />
+                rails generate batman:model Product<br />
+                rails generate batman:view player<br />
+              </code>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="plain-row">
+      <div class="wrapper clearfix">
+        <div class="row clearfix ppb">
+          <div class="span14">
+            <h4>Add your bindings</h4>
+            <p>batman.js has a powerful system to automatically bind your HTML to data in your app and models. You can use data-* attributes to tell a node what type of stuff it cares about. Here's some simple examples.</p><br />
+            <p>More info on <a href="http://batmanjs.org/docs/bindings.html" target="_blank">data bindings</a></p>
+          </div>
+
+          <div class="span10">
+            <div class="box featured">
+              <div><label>First Name:</label><input type="text" data-bind="firstName"></div>
+              <div><label>Last Name:</label><input type="text" data-bind="lastName"></div>
+              <div data-showif="hasName">Hello, my name is <span data-bind="fullName"></span></div>
+              <div><button data-event-click="resetName">Reset name</button></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="alt-row">
+      <div class="wrapper clearfix">
+        <div class="row clearfix ppb">
+          <div class="span14">
+            <h4>Connect to Rails</h4>
+            <p>batman-rails includes a StorageAdapter class that makes communicating with your Rails API extremely easy. First set the storageKey to tell it which API endpoint to use, then specify that the model should persist with the RailsStorage storage adapter.</p><br />
+            <p>More info on <a href="http://batmanjs.org/docs/models.html" target="_blank">models</a></p>
+          </div>
+
+          <div class="span10">
+            <div class="box featured">
+              <pre><code>class MyApp.Product extends Batman.Model
+  @storageKey: 'products'
+  @persist Batman.RailsStorage</code></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- End content-wrapper -->
+
+
+
+<style type="text/css" media="screen">
+  /* ============= */
+  /* = CSS Reset = */
+  /* ============= */
+
+  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td {
+      margin: 0;
+      padding: 0;
+      border: 0;q
+      outline: 0;
+      font-weight: inherit;
+      font-style: inherit;
+      font-size: 100%;
+      font-family: inherit;
+      vertical-align: baseline;
+  }
+
+  /* remember to define focus styles! */
+  :focus { outline: 0; }
+  body { line-height: 1; color: black; background: white; }
+  ol, ul { list-style: none; }
+  /* tables still need 'cellspacing="0"' in the markup */
+  table { border-collapse: separate; border-spacing: 0; }
+  caption, th, td { text-align: left; font-weight: normal; }
+  blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+  blockquote, q { quotes: "" ""; }
+
+  /* generic / layout */
+  body {
+    font-family: Avenir, sans-serif;
+    line-height: 1.3;
+    padding-top: 64px;
+    background: #171722;
+    color: #a2a1ba;
+  }
+  p + p { margin: 0 0 .45em 0;}
+  h1 { color: magenta; }
+
+  h2, h3, h4, h5 { font-family: Avenir, sans-serif; }
+  h2 {
+    font-size: 170%;
+    margin-bottom: .5em;
+    margin-top: 1.3em;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #E4E8F5;
+  }
+  h3 { font-size: 150%; margin-bottom: .5em; line-height: 1.3em; }
+  h4 { font-size: 130%; margin-bottom: .5em; }
+  h5 { font-size: 115%; margin-bottom: .5em; }
+  a { color: #a2a2ba; }
+  a:hover { color: #fff; }
+  ol { list-style-type: decimal; padding-left: 20px; }
+  code {
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
+    color: #333;
+    padding: 0 3px;
+    background: #fff;
+    font-size: 85%;
+  }
+  .code-highlight {
+    background: #fff8d4;
+    font-size: 90%
+  }
+
+  /* layout */
+  .row {
+    margin-left: -20px;
+  }
+  div[class*="span"] {
+    padding-left: 20px;
+    float:left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .span1 {  width:4.1666667%; }
+  .span2 {  width:8.3333333%; }
+  .span3 {  width:12.5%; }
+  .span4 {  width:16.6666667%; }
+  .span5 {  width:20%; }
+  .span6 {  width:25%; }
+  .span7 {  width:29.1666667%; }
+  .span8 {  width:33.3333333%; }
+  .span9 {  width:37.5%; }
+  .span10 { width:41.6666667%; }
+  .span11 { width:45%; }
+  .span12 { width:50%; }
+  .span13 { width:54.1666667%; }
+  .span14 { width:58.3333333%; }
+  .span15 { width:62.5%; }
+  .span16 { width:66.6666667%; }
+  .span17 { width:70.8333333%; }
+  .span18 { width:75%; }
+  .span19 { width:79.1666667%; }
+  .span20 { width:83.3333333%; }
+  .span21 { width:87.5%; }
+  .span22 { width:91.6666667%; }
+  .span23 { width:95.8333333%; }
+  .span24 { width:100%; float:none; }
+
+  .wrapper {
+    width: 980px;
+    margin: 0 auto;
+  }
+
+  .flex .wrapper {
+    width: 100%;
+    max-width: 1340px;
+    min-width: 800px;
+  }
+
+  .alt-row { background: #EAEBFA; }
+  .plain-row { background: #fff;}
+
+  .alt-row, .plain-row { color: #171722; }
+
+  .alt-row a, .plain-row a { color: #323264; }
+  .alt-row a:hover, .plain-row a:hover { color: #3f3f9e;}
+
+  /* helpers */
+  .clearfix:before,.clearfix:after{content:"\0020";display:block;height:0;visibility:hidden}.clearfix:after{clear:both}.clearfix{zoom:1}
+
+  .p { padding: 10px; }
+  .pp { padding: 20px; }
+  .ppt { padding-top: 20px; }
+  .ppr { padding-right: 20px; }
+  .ppl { padding-left: 20px; }
+  .ppb { padding-bottom: 20px; }
+  .p-none { padding: 0; }
+
+  .sb{ margin-bottom: 10px; }
+  .ssb{ margin-bottom: 20px; }
+  .ssl{ margin-left: 20px; }
+  .s-none { margin: 0; }
+
+  .fl { float: left; }
+  .fr { float: right; }
+
+  .tc { text-align: center }
+  .tl { text-align: left }
+  .tr { text-align: right }
+
+  .divider-top { border-top: solid 1px #e8e8fc; margin-top: 15px; padding-top: 15px; }
+  .divider { border-bottom: solid 1px #e8e8fc; margin-bottom: 15px; padding-bottom: 15px; }
+
+  .small { font-size: 13px; }
+
+  /* buttons */
+  .btn {
+    padding: 6px 8px 4px 10px;
+    background: #a2a1ba;
+    text-decoration: none;
+    color: #fff !important;
+    border-radius: 4px;
+    -webkit-transition: all 0.1s ease;
+    -moz-transition:    all 0.1s ease;
+    -ms-transition:     all 0.1s ease;
+    -o-transition:      all 0.1s ease;
+    transition:         all 0.1s ease;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .btn:hover { background: #ffe43f; color: #1f1f27 !important; }
+  .btn:active { background: #ffe43f; }
+
+  /* boxes */
+  .box {
+    background: #f9f9f9;
+    padding: 20px;
+    line-height: 1.5em;
+  }
+  .box.featured {
+    font-size: 1.1em;
+  }
+  .box p { color: #5c5c6e; }
+  .box a { text-decoration: none; }
+  .box-connected{
+    border-top: solid 1px #e6e6e6;
+    padding: 10px;
+    background: #efefef;
+  }
+  .box-highlight{
+    background: #f3f3fc;
+  }
+  .box-highlight .divider { border-color: #e8e7ec; }
+  .box-highlight .divider-top { border-color: #e8e7ec; }
+  .box-highlight .callout {
+    background: #e8e7f1;
+    padding: 10px;
+    float: right;
+    width: 28%;
+    font-size: 13px;
+  }
+  .box-highlight-connected{
+    border-top: solid 1px #e0deeb;
+    padding: 20px;
+    background: #e8e7f4;
+    font-size: 14px;
+  }
+  .box-highlight-connected a { text-decoration: none }
+  .box-highlight-connected a:hover{ text-decoration: underline }
+  .box.mh {
+    min-height: 12.5em;
+  }
+
+  td + td > p, th + th {
+    padding-left: 20px;
+  }
+
+  /* lists */
+  .bat-list{
+    font-size: 14px;
+    color: #a2a1ba;
+    margin-left: 18px;
+    margin-top: 1em;
+  }
+  .bat-list li{
+    list-style-type: square;
+    margin-bottom: .45em;
+  }
+
+  /* header */
+  .header{
+    position: fixed; top: 0; left: 0;
+    width: 100%;
+    height: 64px;
+    background: #1f1f27;
+    box-shadow: 0 5px 10px rgba(0,0,0,.05);
+    z-index: 2;
+  }
+  .header a{ color: #a2a2ba;
+    -webkit-transition: all 0.15s ease;
+    -moz-transition:    all 0.15s ease;
+    -ms-transition:     all 0.15s ease;
+    -o-transition:      all 0.15s ease;
+    transition:         all 0.15s ease;
+  }
+  .header a:hover { color: #fff; }
+
+  .header-site-title {
+    float: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 24px;
+    padding-left: 20px;
+  }
+  .header-site-title a{
+    color: #fff;
+    text-decoration: none;
+    line-height: 66px;
+  }
+  .header .logo {
+    display: inline-block;
+    width: 50px;
+    height: 40px;
+    margin: 9px 10px -9px 0;
+  }
+
+
+  /* header > nav */
+  .header-nav { float: right; padding-right: 20px; }
+  .nav-primary a {
+    display: block;
+    height: 64px;
+    line-height: 67px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 0 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .nav-top-highlight a { color: #1f1f27; line-height: 34px; background: #ffe43f; height: 32px; margin: 16px 0 0 20px; border-radius: 4px; }
+  .nav-primary li { float: left; }
+  .nav-primary a:hover, .nav-primary li.active{
+    background: #2a2a32;
+    color: #fff;
+  }
+
+  .box li a {
+    text-decoration: none;
+    line-height: 1.6em;
+  }
+
+  .current:before {
+    content: "▶";
+    margin-left: -42px;
+    font-size: 16px;
+    padding-right: 23px;
+    color: #f3f4fb;
+    text-shadow: 1px 2px 1px rgb(231, 226, 255);
+  }
+
+  .intro {
+    background: #111119 0 100% repeat-x;
+    color: #a2a1ba;
+    height: 382px;
+    overflow: hidden;
+    -moz-transition: height 0.4s cubic-bezier(0.860, 0.000, 0.070, 1.000);
+    -webkit-transition: height 0.4s cubic-bezier(0.860, 0.000, 0.070, 1.000);
+  }
+
+  .intro h2 { font-size: 36px; color: #fff; line-height: 1.2em; text-align: center; }
+  .intro h3 { font-size: 18px; line-height: 1.3em; text-align: center; }
+
+  .intro-message {
+    margin-top: 80px;
+    margin-bottom: 40px;
+  }
+
+  .alt-row .row,
+  .plain-row .row {
+    padding: 60px 0;
+  }
+
+  /* content-wrapper */
+  .content-wrapper ul {
+    list-style: disc;
+    padding: 15px;
+  }
+  .content-wrapper p {
+    margin-bottom: 15px;
+  }
+
+  @media all and (min-width: 1340px) {
+    .api-docs.box {
+      padding-left: 20px;
+    }
+    .header-nav, .header-site-title {
+      padding: 0;
+    }
+  }
+
+</style>

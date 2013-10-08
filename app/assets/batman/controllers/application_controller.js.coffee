@@ -1,0 +1,1 @@
+class FoosballLadder.ApplicationController extends Batman.Controller

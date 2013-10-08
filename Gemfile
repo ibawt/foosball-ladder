@@ -36,3 +36,8 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+gem 'batman-rails'
+gem 'devise'
+gem 'cancan'
+gem 'mysql2'
