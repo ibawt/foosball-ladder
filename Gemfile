@@ -16,7 +16,7 @@ gem 'coffee-rails', '~> 4.0.0'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
- gem 'uglifier', '>= 1.0.3'
+gem 'uglifier', '>= 1.0.3'
 
 gem 'jquery-rails'
 
@@ -40,3 +40,5 @@ gem 'devise'
 gem 'cancan'
 gem 'mysql2'
 gem 'debugger', group: [:development, :test]
+gem 'populator'
+gem 'faker'

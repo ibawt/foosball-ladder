@@ -54,6 +54,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
+    faker (1.2.0)
+      i18n (~> 0.5)
     hike (1.2.3)
     i18n (0.6.5)
     jbuilder (1.5.1)
@@ -72,6 +74,7 @@ GEM
     mysql2 (0.3.13)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
+    populator (1.0.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -134,9 +137,11 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   debugger
   devise
+  faker
   jbuilder (~> 1.2)
   jquery-rails
   mysql2
+  populator
   rails (= 4.0.0.rc2)
   sass-rails (~> 4.0.0.rc2)
   sqlite3

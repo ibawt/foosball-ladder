@@ -1,9 +1,12 @@
 FoosballLadder::Application.routes.draw do
-  resources :teams
   devise_for :users
-
   get "(*redirect_path)", to: "batman#index", constraints: lambda { |request| request.format == "text/html" }
+
+  resources :teams
+  resources :users
+
   root :to => "main#index"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -8,3 +8,6 @@ class FoosballLadder.Team extends Batman.Model
   # @encode 'name'
   @encodeTimestamps()
 
+  @hasMany 'users', foreignKey: 'team_id'
+
+  @encode 'name'

@@ -35,7 +35,7 @@ class TeamsControllerTest < ActionController::TestCase
   end
 
   test "should update team" do
-    put :update, id: @team, team: { name: @team.name }
+    patch :update, id: @team, team: { name: @team.name }
     assert_redirected_to team_path(assigns(:team))
   end
 
