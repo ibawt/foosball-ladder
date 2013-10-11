@@ -16,8 +16,7 @@
   
   - The [Ruby](http://www.ruby-lang.org/en/downloads) language ( >= 1.9.3 )
   - The [RubyGems](http://rubygems.org/) system
-  - The [MySQL](http://dev.mysql.com/downloads/mysql/) database
-  - a text editor of your choice ( I use [Emacs](http://www.gnu.org/s/emacs) )
+  - A text editor of your choice ( I use [Emacs](http://www.gnu.org/s/emacs) )
   
   I wrote this guide on OSX, but it should be similar on Linux.  
   
@@ -48,7 +47,7 @@
   
   Generate the rails project by:
   ```
-  $ rails news foosball-ladder
+  $ rails new foosball-ladder
   ```
   
   This will create a default rails 4 project into the directory "foosball-ladder".  Go into
@@ -68,7 +67,6 @@
   gem 'turbolinks'
   gem 'batman-rails'
   gem 'devise'
-  gem 'mysql2'
   gem 'debugger', group: [:development, :test]
   ```
   The important things being:
@@ -83,6 +81,14 @@
   ```
   This will install of the gems you indicated above.
 
+## Database Setup
+
+   Since we are using the default SQlite installation, we should only have to type:
+   ```
+   $ rake db:create
+   ```
+   
+   And you should be good to go!
 
 ## Setup Devise
   We'll be using the gem [devise](https://github.com/plataformatec/devise) to handle
@@ -101,31 +107,6 @@
   
   We can worry about the rest later.
   
-## Database Setup
-
-  The following assumes you have a default mysql install, if you can pretty much use
-  any database that rails supports (Postgres and SQlite in addition to MySQL. )
-  
-  Open up the file in `config/database.yml` and change the `development` section
-  to the following:
-  
-  ```
-  development:
-   adapter: mysql2
-   encoding: utf8
-   database: foosball-ladder
-   pool: 5
-   username: root
-   password:
-   port: 3306
-   host: 127.0.0.1
-   socket: /tmp/mysql.sock
-   timeout: 5000
-  ```
-  
-  Of course if you know the settings your particular database has, use those instead.  Rails
-  will complain loudly if you get it wrong.
-  
 ## Setup the Batman
 
   Now to the meat, we'll be generating a default configuration for BatmanJS.  
@@ -134,6 +115,10 @@
   ```
   $ rails generate batman:app
   ```
+  
+  All of the batman.js files will be `app/assets/batman`.  For the context of these
+  tutorials, make sure you look there first.  There will be other javascript in `app/assets/javascripts` but those are the rails defaults.
+  
   
   Ok, now we have some javascript in there!  We will be using `coffee-script`, which many find
   easier than dealing with `javascript` ( myself included.)

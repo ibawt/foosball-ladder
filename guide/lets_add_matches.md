@@ -127,7 +127,7 @@
   There's a few new things in this HTML:
     - `append` in the dashboard title.  This is a feature of batman that lets us modify the values in a `data-bind` like attribute
 	           to do a bunch of things.  In this case it's just appending the string ' Dashboard' to the team name.  There's a few
-			   more list in the (Batman.Filter)[http://batmanjs.org/docs/api/batman.view_filters.html] documentation.
+			   more list in the [Batman.Filter](http://batmanjs.org/docs/api/batman.view_filters.html) documentation.
 
 	- `data-hideif` This will do as it seems, it will hide the attached node and everything below it.  In this case we're hiding
 	                it if the value of `matchesToRecord` is false-ish.

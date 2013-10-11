@@ -6,12 +6,11 @@
 ## Lets add the HTML for a simple navbar
 
   Since we want the navbar to be outside of the `main#index` we'll add some containers into `batman.html.erb`.
-  I used the (twitter-bootstrap)[http://getbootstrap.com] as I generally have no idea what I'm doing when
+  I used the [twitter-bootstrap](http://getbootstrap.com) as I generally have no idea what I'm doing when
   it comes to CSS.  Feel free to use your own containers.  We will be editing `batman.html.erb` as it's it's the
   main page for our Batman app, the edits follow:
   
   ```
-  <body>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span2">
@@ -31,7 +30,6 @@
 			FoosballLadder.run();
 		</script>
 	</div>
-   </div>
    ```
    
    It almost looks like normal HTML, until you see the `data-route` directives.  These correspond with your
@@ -59,7 +57,7 @@
   This will generate a default controller and views.  We won't really need a view, batman will create
   a default view anything it needs.  We'll cover why it's useful later.  Lets start by writing the index.
   
-  Open up `batman/controllers/teams_controller.js.coffee` and add the following action:
+  Open up `batman/controllers/teams_controller.js.coffee` and add the following action as a method to the class:
   ```
   index: (params) ->
     FoosballLadder.load (err, response) =>
@@ -90,13 +88,9 @@
   There's a few new things, I'll explain them below.
   
   - `data-route="route.teams.new"` This will dispatch the new action.
-  - `data-route="route.teams[team]"` We've seen this before, but not in this context.  It will route to the `show` 
-	                                 action of the teams resource.  Hover over the link and you'll see the RESTful URL.
-				 
-
-  _NOTE_: If you hit refresh in this page and get something like this:
-	  You'll need to move the following line in `routes.rb` to above the `resource` directives.
-	  
+  - `data-route="route.teams[team]"` We've seen this before, but not in this context.  It will route to the `show` action of the teams resource.  Hover over the link and you'll see the RESTful URL.
+  
+  _NOTE_: If you hit refresh in this page and get something like this: You'll need to move the following line in `routes.rb` to above the `resource` directives.
 	  ```
 	  get "(*redirect_path)", to: "batman#index", constraints: lambda { |request| request.format == "text/html" }
 	  ```
@@ -146,7 +140,7 @@
 	  Batman.redirect FoosballLadder.get('routes.teams.path')
   ```
   
-  Now on the rails side we have to use the strong parameter code in the `teams_controller`.
+  Now on the rails side we have to use the strong parameter code in the `teams_controller`. 
   
   ```
   def create

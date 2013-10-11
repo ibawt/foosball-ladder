@@ -12,7 +12,7 @@
   ```
 
   Now if you go to your website, you should get an login screen.  Follow the sign in and
-  you will see the BatmanJS starting guide like you did in the last tutorial.
+  you will see the batman.js starting guide like you did in the last tutorial.
   
   Lets delete all of that, in `batman/html/main/index.html` and replace it with some our 
   own html.  You could do something like this:
@@ -21,7 +21,7 @@
   <div>
 	<h1>Welcome to the Foosball Ladder</h1>
   </div>
-  ````
+  ```
   
   Note that we don't need the normal html elements, as this will be embedded in another html page
   (we're making a single page app dawg! )
@@ -48,7 +48,7 @@
   Add the following to the model:
   
   ```
-  @encode 'email
+  @encode 'email'
   ```
   
   This will tell batman that we will get an `email` field in the json object describing the `User`
