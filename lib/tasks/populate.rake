@@ -22,5 +22,5 @@ namespace :db do
     Team.all.each do |team|
       User.where(:team_id => nil ).shuffle[1,2].each { |u| u.team = team ; u.save! }
     end
-  End
+  end
 end

@@ -5,9 +5,11 @@ class FoosballLadder.Team extends Batman.Model
   @persist Batman.RailsStorage
 
   # Use @encode to tell batman.js which properties Rails will send back with its JSON.
-  # @encode 'name'
   @encodeTimestamps()
 
   @hasMany 'users', foreignKey: 'team_id'
 
-  @encode 'name'
+  @hasMany 'team_ones', { foreignKey: 'team_one_id', name: 'Team' }
+  @hasMany 'team_twos', { foreignKey: 'team_two_id', name: 'Team' }
+
+  @encode 'name', 'rating'

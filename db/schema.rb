@@ -11,12 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131009133203) do
+ActiveRecord::Schema.define(version: 20131011151038) do
+
+  create_table "matches", force: true do |t|
+    t.integer  "team_one_id"
+    t.integer  "team_two_id"
+    t.integer  "team_one_score"
+    t.integer  "team_two_score"
+    t.integer  "team_one_accepted_results"
+    t.integer  "team_two_accepted_results"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "matches", ["team_one_id"], name: "index_matches_on_team_one_id", using: :btree
+  add_index "matches", ["team_two_id"], name: "index_matches_on_team_two_id", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rating",     default: 1200
   end
 
   create_table "users", force: true do |t|

@@ -1,9 +1,11 @@
 FoosballLadder::Application.routes.draw do
+
   devise_for :users
   get "(*redirect_path)", to: "batman#index", constraints: lambda { |request| request.format == "text/html" }
 
   resources :teams
   resources :users
+  resources :matches
 
   root :to => "main#index"
 

@@ -2,31 +2,30 @@
 <html>
 <head>
   <title>Foosball Ladder</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "foosball_ladder" %>
 	<%= stylesheet_link_tag "bootstrap.min", :media => "all" %>
+	<%= stylesheet_link_tag "foosball.css", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span2">
-				<div class="navbar-header">
-					<a class="navbar-brand">Foosball Ladder</a>
-				</div>
-				<ul class="nav nav-pills nav-stacked">
-					<li><a data-route="routes.teams">Teams</a></li>
-					<li><a data-route="routes.users">Users</a></li>
-					<li><%= link_to "Sign Out", destroy_user_session_path %></li>
-				</ul>
-			</div>
-			<div data-yield="main"></div>
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" data-route="'/'">Foosball Ladder</a>
 		</div>
-		<script type="text/javascript">
-			FoosballLadder.currentUser = FoosballLadder.User.createFromJSON( <%= current_user.to_json.html_safe %> );
-			FoosballLadder.run();
-		</script>
+		<ul class="nav navbar-nav">
+			<li><a data-route="routes.teams">Teams</a></li>
+			<li><a data-route="routes.users">Users</a></li>
+			<li><a data-route="routes.matches">Matches</a></li>
+			<li><%= link_to "Sign Out", destroy_user_session_path %></li>
+		</ul>
 	</div>
-</div>
+	<div data-yield="main"></div>
+	<script type="text/javascript">
+		FoosballLadder.currentUser = FoosballLadder.User.createFromJSON( <%= current_user.to_json.html_safe %> );
+		FoosballLadder.run();
+	</script>
 </body>
 </html>
