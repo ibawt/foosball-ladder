@@ -9,12 +9,6 @@ class FoosballLadder.MainController extends FoosballLadder.ApplicationController
     FoosballLadder.Match.load matchParams, (err,matches) =>
       @set 'matches', new Batman.Set(matches...)
 
-  @accessor 'matchesToRecord', ->
-    @get('matches').filter( (match) -> match.get('needsRecord'))
-
-  @accessor 'matchesToConfirm', ->
-    @get('matches').filter( (match) -> match.get('needsConfirmation'))
-
   @accessor 'indexOf', ->
     new Batman.Accessible (team) =>
       @get('teams').indexOf(team)+1

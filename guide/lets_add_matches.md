@@ -19,7 +19,7 @@
 	
   Anytime a team 'challenges' another team, they will make a `Match` object, with them being `team_one`.  The match results
   will not be valid until either team enters the scores and both teams accept the results.  Seems simple enough, so let's
-  make some rails models.
+  make some rails models.  We won't be adding score verification in this tutorial, but we will eventually!
   
   ```
   $ rails generate scaffold Match
@@ -253,5 +253,160 @@
   
   Of course the rest of the ui hasn't updated with our changes, lets change that!
   
-  First lets get rid of the challenge button if a match exists for our team versus theirs.
+  First lets get rid of the challenge button if a match exists for our team versus theirs.  We're going to add another `accessor` that will tell us if
+  the team on the line is one we can challenge. This is the line we're going to add to the challenge button.
+  
+  ```
+  data-showif="showChallengeButton[team]
+  ```
+  
+  And we'll add the appopriate accessor onto our controller:
+  ```
+  @accessor 'showChallengeButton', ->
+    new Batman.Accessible (team) =>
+      return false if FoosballLadder.currentUser.get('team_id') == team.get('id')
+      return !@get('matches')?.some( (m) -> m.get('team_one_id') == team.get('id') or m.get('team_two_id') == team.get('id'))
+  ```
+  
+  So we won't the button if it's our own team, and we won't add it if any of the current 'matches' has us in it.
+  
+## Score submission
+
+  Since now we can send challenges, we now can record the results somewhere.  We'll go into the dashboard html and it will look like this now:
+  
+  ```
+  <div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title" data-bind="currentUser.team.name | append ' Dashboard'"></h4>
+	</div>
+	<div class="panel-body">
+		<div class="">
+			<div class="alert alert-warning" data-hideif="matches.length">No Matches to record!</div>
+			<div data-showif="matches.length">Record your matches below!</div>
+			<ul class="list-group">
+				<div class="" data-showif="matches.length" class="offset1" data-foreach-match="matches">
+					<li class="list-group-item">
+						<form data-formfor="match" data-event-submit="updateMatch">
+							<div data-showif="match.isTeamOneCurrent">
+								<div data-bind="match.opposingTeam.name"></div> 
+								<div class="input-group">
+									<span class="input-group-addon">My Score:</span>
+									<input type="text" class="form-control" data-bind="match.team_one_score" />
+									<span class="input-group-addon">Their Score:</span>
+									<input type="text" class="form-control" data-bind="match.team_two_score" />
+								</div>
+							</div>
+							<div data-hideif="match.isTeamOneCurrent">
+								<div data-bind="match.opposingTeam.name"></div> 
+								<div class="input-group">
+									<span class="input-group-addon">My Score:</span>
+									<input id="team_two_score" type="text" class="form-control" data-bind="match.team_two_score" />
+									<span class="input-group-addon">Their Score:</span>
+									<input id="team_one_score" type="text" class="form-control" data-bind="match.team_one_score" />
+								</div>
+							</div>
+							<input type="submit" class="btn" value="Submit"/>
+						</form>
+					</li>
+				</div>
+			</ul>
+		</div>
+	</div>
+</div>
+```
+
+  The big difference now is that we are iterating over the list of matches, and supplying some forms to input the match data.  We now can show it or hide depending
+  on the value of `matches.length`.   We'll add the ability to submit the match data via a method in the controller:
+  
+  ```
+  updateMatch: (node, event, view)->
+    match = view.lookupKeypath('match')
+    match.save (err,response) =>
+      @get('matches').remove(match)
+      FoosballLadder.Team.load (err,teams) =>
+        @set 'teams', teams
+
+  ```
+  
+  We'll use the `lookupKeypath` method to grab the model from the foreach iteration again.  It will be prepopulated from the magic of data binding, then we'll save it.
+  On the response we'll remove the match from the list and reload the teams for the rating calculation.  
+  
+  We're also going to change the data type on the `matches`, as the `load` method on the model will return a plain old javascript array.  Why?  Well if we don't the rest 
+  of the page won't auto update when `matches` changes.  In the `index` action we'll construct a Batman.Set from the returned array like this:
+  ```
+  matchParams = matches_for_team: FoosballLadder.currentUser.get('team_id'), needs_action: 1
+    FoosballLadder.Match.load matchParams, (err,matches) =>
+      @set 'matches', new Batman.Set(matches...)
+  ```
+  
+   Now whenever `matches` changes, all of our bindings will update.  You'll notice we added a `needs_action` parameter to the load to indicate to the server that we only
+   want `Match` object that require us to submit scores.  We'll have to do a little ruby work now to get the back end up to snuff.
+   
+   First, the default controller action for create doesn't seem to give us back the entire object.  We can change this behaviour pretty easily by chaning the render in
+   the `create` action:
+   
+   ```
+   form.json { render: json: @match, status: :create }
+   ```
+   
+   Now we can grab that object with it's persisted id and shove it into the list of matches that we're interested in.  Now lets add a rating calculation ( I just grabbed
+   an ELO rating off the internet. )  And put it into the the `update` action like so:
+   
+   ```
+     def calculate_rating
+    if @match.team_one_score > @match.team_two_score
+      score = 1
+    else
+      score = 0
+    end
+
+    score_difference = @match.team_two.rating - @match.team_one.rating
+    team_one_rating = score -  1.0 / ( (10**(score_difference/400.0))+1)
+    team_one_rating *= 20
+
+    score = score == 1 ? 0 : 1
+
+    score_difference = @match.team_one.rating - @match.team_two.rating
+    team_two_rating = score -  1.0 / ( (10**(score_difference/400.0) ) + 1 )
+    team_two_rating *= 20
+    
+    @match.team_two.rating += team_two_rating
+    @match.team_two.save!
+    
+    @match.team_one.rating += team_one_rating
+    @match.team_one.save!
+  end
+
+  # PATCH/PUT /matches/1
+  # PATCH/PUT /matches/1.json
+  def update
+    respond_to do |format|
+      mp = match_params
+      if @match.update(mp)
+        format.json { render json: @match }
+        if @match.team_one_score and @match.team_two_score
+          calculate_rating
+        end
+      else
+        format.json { render json: @match.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+ ````
+ 
+  We also have to add a `rating` column to the `teams` table.  So we'll generate a migration like we did in previous tutorials and add the line:
+  ```
+  add_column :teams, :rating, :decimal, :default => 1200
+  ```
+  
+  We're going to start everyone with a default rating of 1200, we could do 0 but it's kind of odd to have negative ratings.  We're also missing the implementation of
+  `get_matches` so let's add that as well:
+  
+  ```
+   def get_matches( needs_action )
+    Match.where( '(team_one_id = ? or team_two_id = ?) and (team_one_score IS NULL or team_two_score IS NULL)', id, id )
+  end
+  ```
+  
+  
 

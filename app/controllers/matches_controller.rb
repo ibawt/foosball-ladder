@@ -77,7 +77,9 @@ class MatchesController < ApplicationController
       mp = match_params
       if @match.update(mp)
         format.json { render json: @match }
-        calculate_rating
+        if @match.team_one_score and @match.team_two_score
+          calculate_rating
+        end
       else
         format.json { render json: @match.errors, status: :unprocessable_entity }
       end
